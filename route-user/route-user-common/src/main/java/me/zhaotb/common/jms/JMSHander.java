@@ -1,4 +1,4 @@
-package me.zhaotb.route.miku.web;
+package me.zhaotb.common.jms;
 
 import java.util.logging.Logger;
 

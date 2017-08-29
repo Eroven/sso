@@ -1,4 +1,4 @@
-package me.zhaotb.route.tianyi.web;
+package me.zhaotb.common.utils;
 
 import java.util.UUID;
 

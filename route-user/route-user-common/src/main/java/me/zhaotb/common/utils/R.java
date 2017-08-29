@@ -1,4 +1,4 @@
-package me.zhaotb.route.miku.web;
+package me.zhaotb.common.utils;
 
 /**
  * 
@@ -9,8 +9,12 @@ public final class R {
 	/**
 	 * 授权的URL，可选参数：server ->用来表示授权完成后跳转的服务
 	 */
-	public static final String AUTHORIZE_URL = "http://localhost:8090/route-user-miku/authorize/user";
+	public static final String AUTHORIZE_URL = "http://localhost:8090/route-user-c-ac/authorize/user";
 
+	public static final String DEFAULT_INDEX = "http://localhost:8090/route-user-miku/index";
+
+	public static final String DEFAULT_LOGIN_PAGE = "http://localhost:8090/route-user-miku/toLogin";
+	
 	/**
 	 * 会话失效时间30分钟
 	 */
