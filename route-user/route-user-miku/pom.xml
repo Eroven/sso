@@ -18,6 +18,12 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <dependency>
+    	<groupId>me.zhaotb</groupId>
+    	<artifactId>route-user-common</artifactId>
+    	<version>${project.parent.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>route-user-miku</finalName>

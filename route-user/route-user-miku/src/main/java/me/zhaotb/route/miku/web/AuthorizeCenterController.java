@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("authorize")
+import me.zhaotb.common.jms.JMSHander;
+import me.zhaotb.common.redis.RedisClient;
+import me.zhaotb.common.utils.R;
+import me.zhaotb.common.utils.RandomUtil;
+
 public class AuthorizeCenterController {
 
 	private static final String DEFAULT_INDEX = "http://localhost:8090/route-user-miku/index";

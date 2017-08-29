@@ -46,7 +46,7 @@
 
 	<!-- 配置连接ActiveMQ的ConnectionFactory -->
 	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
-		p:brokerURL="tcp://localhost:61616" />
+		p:brokerURL="tcp://192.168.71.129:61616" />
 
 	<!--为了提高效率，配置一个连接池 -->
 	<bean id="cachedConnectionFactory"

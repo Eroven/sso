@@ -7,6 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import me.zhaotb.common.jms.JMSHander;
+import me.zhaotb.common.redis.RedisClient;
+import me.zhaotb.common.utils.R;
+
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
 	@Autowired

@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import me.zhaotb.common.redis.RedisClient;
+import me.zhaotb.common.utils.R;
+import me.zhaotb.common.utils.RandomUtil;
+
 @Controller
 public class LoginController {
 	
