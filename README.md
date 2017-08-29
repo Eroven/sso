@@ -19,8 +19,8 @@ A.html与B.html是有相关性的但不是一个服务端，而且跨域，怎�
     * 创建一个命名为TK的票据，以参数的形式重定向请求X.html，服务端拦截，发现有TK，根据TK向授权中心交流，尝试获取用户信息。若获取成功，返回资源X.html
      ### 技术实现
      * 全局Session使用Redis作为缓存，其中key即*RSESSIONID*,且Session失效时间为30m
-     * 局部Session即服务端本身的session，例如*java web*的*HttpSession*
-     * 服务端X在拥有TK后以ActiveMQ形式向AC交流，其中TK的值即消息中的*JMSCorrelationID*,且每条消息失效时间为30s
+     * 局部Session即服务端本身的session，例如*java web*的*HttpSession*
+     * 服务端X在拥有TK后以ActiveMQ形式向AC交流，其中TK的值即消息中的*JMSCorrelationID*,且每条消息失效时间为30s
      ### 登出
      按理说退出功能是在基本逻辑里面就该设计好的，但是实际上作者在明白了尝试二的可行性后又有点得意了，所以设计时忽略了退出功能，在完成登录功能后才发现少了点什么。这里只是按作者的实际情况来描述，希望作者以后看到这个的时候能够感受到自己的成长，以及作为一个警示。
     * 在每个服务端授权成功将*RSESSIONID*保存到局部session中（不需要保存到Cookie）
