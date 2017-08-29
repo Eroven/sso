@@ -13,7 +13,7 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JMSHander {
+public class JMSHander { 
 
 	private static Logger logger = Logger.getLogger("JMSHander");
 

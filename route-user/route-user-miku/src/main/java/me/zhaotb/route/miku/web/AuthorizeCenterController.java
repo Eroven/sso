@@ -15,7 +15,7 @@ public class AuthorizeCenterController {
 
 	private static final String DEFAULT_INDEX = "http://localhost:8090/route-user-miku/index";
 
-	@Autowired
+	@Autowired 
 	private JMSHander jms;
 
 	@Autowired
