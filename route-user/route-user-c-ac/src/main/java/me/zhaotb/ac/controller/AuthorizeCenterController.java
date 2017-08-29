@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
+
+import me.zhaotb.ac.user.DefaultUserProvider;
+import me.zhaotb.ac.user.UserProvider;
+import me.zhaotb.ac.user.UserState;
 import me.zhaotb.common.jms.JMSHander;
 import me.zhaotb.common.redis.RedisClient;
 import me.zhaotb.common.utils.R;
@@ -17,6 +22,8 @@ import me.zhaotb.common.utils.RandomUtil;
 @Controller
 @RequestMapping("authorize")
 public class AuthorizeCenterController {
+	
+	private UserProvider provider = new DefaultUserProvider();
 
 	@Autowired
 	private JMSHander jms;
@@ -60,6 +67,27 @@ public class AuthorizeCenterController {
 				}
 			}
 		return null;
+	}
+	
+	@RequestMapping("doLogin")
+	public void login(String account,String password,HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
+		UserState state = provider.valideUser(account, password);
+		if(200 == state.getState()) { 
+			String RID = RandomUtil.uuid();
+			redis.saveUser(RID, JSON.toJSONString(state.getUser()));
+			Cookie c = new Cookie(R.C.RID, RID);
+			c.setMaxAge(-1);//当浏览器关闭时，删除全局会话id
+			response.addCookie(c);
+			response.sendRedirect(R.AUTHORIZE_URL);
+		}
+	}
+	
+	@RequestMapping("logout")
+	public void logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		String RID = getRID(request, response);
+		if(RID != null)
+			redis.invalidSession(RID.toString());//摧毁全局Session
+		response.sendRedirect(R.AUTHORIZE_URL+"?server="+R.DEFAULT_INDEX);
 	}
 
 }

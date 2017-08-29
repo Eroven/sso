@@ -9,7 +9,7 @@
 <title>miku after</title>
 </head>
 <body>
-<h2>Hello&nbsp;${user }</h2>&nbsp;<a href="${basePath }/logout">退出</a><br>
+<h2>Hello&nbsp;${user }</h2>&nbsp;<a href="http://localhost:8090/route-user-c-ac/authorize/logout">退出</a><br>
 <a href="http://localhost:8090/route-user-miku/toLogin">miku登录页面</a>
 <a href="http://localhost:8090/route-user-miku/index">miku after页面</a>
 </body>

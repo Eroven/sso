@@ -6,7 +6,7 @@
 <body>
 <h2>Hello Miku!</h2>
 <meta charset="UTF-8">
-<form action="${basePath }/doLogin">
+<form action="http://localhost:8090/route-user-c-ac/authorize/doLogin">
 	<input type="text" name="account">
 	<input type="text" name="password">
 	<input type="submit" value="登录">

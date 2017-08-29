@@ -12,5 +12,10 @@ public class MikuController {
 		return new ModelAndView("after.jsp");
 	}
 	
+	@RequestMapping("toLogin")
+	public ModelAndView login() {
+		return new ModelAndView("login.jsp");
+	}
+	
 	
 }
