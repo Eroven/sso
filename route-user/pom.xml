@@ -1,0 +1,185 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>me.zhaotb</groupId>
+	<artifactId>route-user</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>route-user Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>3.8.1</junit.version>
+		<spring.version>4.3.9.RELEASE</spring.version>
+		<hibernate.version>5.2.10.Final</hibernate.version>
+		<mysql.jdbc.version>5.1.38</mysql.jdbc.version>
+		<druid.version>1.1.0</druid.version>
+		<htmlunit.version>2.27</htmlunit.version>
+		<aspectj.version>1.8.10</aspectj.version>
+		<jackson.version>2.5.0</jackson.version>
+		<jedis.version>2.9.0</jedis.version>
+		<jstl.version>1.2</jstl.version>
+		<activemq.version>5.1.0</activemq.version>
+	</properties>
+	<dependencies>
+	<dependency>
+   <groupId>javax.jms</groupId>
+   <artifactId>javax.jms-api</artifactId>
+   <version>2.0</version>
+</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-core -->
+<dependency>
+    <groupId>org.apache.activemq</groupId>
+    <artifactId>activemq-core</artifactId>
+    <version>${activemq.version}</version>
+</dependency>
+<!-- spring-jms API -->
+<dependency>
+   <groupId>org.springframework</groupId>
+   <artifactId>spring-jms</artifactId>
+   <version>${spring.version}</version>
+</dependency>
+	
+	<dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jstl-impl</artifactId>
+            <version>1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>jsp-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet.jsp.jstl</groupId>
+                    <artifactId>jstl-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.16</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+
+
+			<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectj.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0 -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-c3p0</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+
+			<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.jdbc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>net.sourceforge.htmlunit</groupId>
+				<artifactId>htmlunit</artifactId>
+				<version>${htmlunit.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>2.2</version>
+			</dependency>
+	</dependencies>
+	<modules>
+		<module>route-user-miku</module>
+		<module>route-user-tianyi</module>
+	</modules>
+</project>
