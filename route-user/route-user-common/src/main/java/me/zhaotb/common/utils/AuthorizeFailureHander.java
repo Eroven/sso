@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.auth.AuthenticationException;
-
 /**
  * 处理授权失败的情况
  * 
@@ -26,7 +24,7 @@ public class AuthorizeFailureHander {
 			session.setAttribute(R.C.FAILED_COUNTER, count);
 			response.sendRedirect(R.AUTHORIZE_URL+"?server="+request.getRequestURL().toString());
 		}else {
-			throw new AuthenticationException("在尝试3次授权后，任然失败");
+			response.sendRedirect(R.AUTHORIZE_LOGOUT);
 		}
 			
 	}

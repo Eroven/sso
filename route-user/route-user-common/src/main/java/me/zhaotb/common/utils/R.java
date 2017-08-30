@@ -10,7 +10,11 @@ public final class R {
 	 * 授权的URL，可选参数：server ->用来表示授权完成后跳转的服务
 	 */
 	public static final String AUTHORIZE_URL = "http://localhost:8090/route-user-c-ac/authorize/user";
-
+	
+	public static final String AUTHORIZE_LOGIN = "http://localhost:8090/route-user-c-ac/authorize/doLogin";
+	
+	public static final String AUTHORIZE_LOGOUT = "http://localhost:8090/route-user-c-ac/authorize/logout";
+	
 	public static final String DEFAULT_INDEX = "http://localhost:8090/route-user-miku/index";
 
 	public static final String DEFAULT_LOGIN_PAGE = "http://localhost:8090/route-user-miku/toLogin";
