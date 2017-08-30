@@ -1,8 +1,6 @@
 package me.zhaotb.ac.user;
 
-import me.zhaotb.common.dao.imp.UserSessionDAOImp;
-
-public class DemoUserProvider extends UserSessionDAOImp implements UserProvider{
+public class DemoUserProvider  implements UserProvider{
 
 	public UserState valideUser(String account, String password) {
 		UserState user = new UserState();
