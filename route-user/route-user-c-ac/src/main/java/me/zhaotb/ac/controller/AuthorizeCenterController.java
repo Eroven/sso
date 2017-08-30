@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
 
-import me.zhaotb.ac.user.DefaultUserProvider;
 import me.zhaotb.ac.user.UserProvider;
 import me.zhaotb.ac.user.UserState;
+import me.zhaotb.common.dao.UserSessionDAO;
 import me.zhaotb.common.jms.JMSHander;
-import me.zhaotb.common.redis.RedisClient;
 import me.zhaotb.common.utils.R;
 import me.zhaotb.common.utils.RandomUtil;
 
@@ -23,21 +22,22 @@ import me.zhaotb.common.utils.RandomUtil;
 @RequestMapping("authorize")
 public class AuthorizeCenterController {
 	
-	private UserProvider provider = new DefaultUserProvider();
+	@Autowired
+	private UserProvider provider;
 
 	@Autowired
 	private JMSHander jms;
 
 	@Autowired
-	private RedisClient redis;
+	private UserSessionDAO redis;
 
 	@RequestMapping("user")
 	public void authorize(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		String serCli = request.getParameter("server");
 		if (serCli != null)
-			session.setAttribute("lastServer", serCli);
-		String rID = getRID(request, response);
+			session.setAttribute(R.C.LAST_SERVER, serCli);
+		String rID = getRID(request);
 		if (rID == null || !redis.accessExistence(rID)) {// 授权中心表示没有用户信息，则需要用户登录
 			response.sendRedirect(R.DEFAULT_LOGIN_PAGE);
 			return;
@@ -45,7 +45,7 @@ public class AuthorizeCenterController {
 
 		String tk = RandomUtil.uuid();
 		jms.sendRID(tk, rID);
-		Object lastServer = session.getAttribute("lastServer");
+		Object lastServer = session.getAttribute(R.C.LAST_SERVER);
 		if (lastServer != null)
 			response.sendRedirect(lastServer.toString() + "?tk=" + tk);
 		else
@@ -58,7 +58,7 @@ public class AuthorizeCenterController {
 	 * @param request
 	 * @return
 	 */
-	private String getRID(HttpServletRequest request, HttpServletResponse response) {
+	private String getRID(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null)
 			for (Cookie c : cookies) {
@@ -71,8 +71,10 @@ public class AuthorizeCenterController {
 	
 	@RequestMapping("doLogin")
 	public void login(String account,String password,HttpSession session,HttpServletRequest request,HttpServletResponse response) throws Exception {
+		if(provider == null)
+			throw new NullPointerException("请在spring容器中配置me.zhaotb.ac.user.UserProvider的实现类（注解或配置bean）");
 		UserState state = provider.valideUser(account, password);
-		if(200 == state.getState()) { 
+		if(200 == state.getState()) { //验证通过,创建全局session
 			String RID = RandomUtil.uuid();
 			redis.saveUser(RID, JSON.toJSONString(state.getUser()));
 			Cookie c = new Cookie(R.C.RID, RID);
@@ -84,10 +86,13 @@ public class AuthorizeCenterController {
 	
 	@RequestMapping("logout")
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		String RID = getRID(request, response);
+		String RID = getRID(request);
 		if(RID != null)
 			redis.invalidSession(RID.toString());//摧毁全局Session
-		response.sendRedirect(R.AUTHORIZE_URL+"?server="+R.DEFAULT_INDEX);
+		Object server = request.getSession().getAttribute("lastServer");
+		if(server == null)
+			server = R.DEFAULT_INDEX;
+		response.sendRedirect(R.AUTHORIZE_URL+"?server="+server);
 	}
 
 }

@@ -1,6 +1,6 @@
 package me.zhaotb.ac.user;
 
-public class DefaultUserProvider implements UserProvider{
+public class DemoUserProvider implements UserProvider{
 
 	public UserState valideUser(String account, String password) {
 		UserState user = new UserState();

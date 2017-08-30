@@ -14,9 +14,11 @@ import redis.clients.jedis.JedisPool;
  *
  */
 @Component
-public class RedisClient {
+public abstract class RedisClient {
 	
 	private static final Logger logger = Logger.getLogger(RedisClient.class);
+	
+	protected int sessionTimeout = R.SESSION_TIME_OUT;
 	
 	/**
 	 * Jedis 连接池
@@ -66,55 +68,4 @@ public class RedisClient {
 		jedis.close();
 	}
 	
-	/**
-	 * 将用户信息储存在Redis中
-	 * @param key 键
-	 * @param user 用户的信息，字符串形式。
-	 * @return  true表示成功<br>
-	 * 			false失败，当且仅当Redis中存在key与传入key值相同。建议使用不易重复的key生成方式
-	 */
-	public boolean saveUser(String key,String user) {
-		Jedis jedis = getResource();
-		boolean res = jedis.hsetnx(key, "name", user) != 0;
-		if(res)
-			jedis.expire(key, R.SESSION_TIME_OUT);
-		jedis.close();
-		return res;
-	}
-	
-	/**
-	 * 通过key得到值
-	 * @param key
-	 * @return
-	 */
-	public String getUser(String key) {
-		Jedis jedis = getResource();
-		String res = jedis.hget(key, "name");
-		jedis.expire(key, R.SESSION_TIME_OUT);
-		jedis.close();
-		return res;
-	}
-	
-	/**
-	 * 访问指定key的存在性，同时会刷新session timeout 时间
-	 * @param key
-	 * @return
-	 */
-	public boolean accessExistence(String key) {
-		Jedis jedis = getResource();
-		boolean res = jedis.exists(key);
-		jedis.expire(key, R.SESSION_TIME_OUT);
-		jedis.close();
-		return res;
-	}
-	
-	/**
-	 * 使指定的全局session失效
-	 * @param key
-	 */
-	public void invalidSession(String key) {
-		Jedis jedis = getResource();
-		jedis.expire(key, 0);
-		jedis.close();
-	}
 }

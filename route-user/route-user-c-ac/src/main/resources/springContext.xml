@@ -26,6 +26,9 @@
 	<context:component-scan base-package="me.zhaotb">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
 	</context:component-scan>
+	
+	<!-- 用户提供者 实现接口 me.zhaotb.ac.user.UserProvider -->
+	<bean id="userProvider" class="me.zhaotb.ac.user.DemoUserProvider"></bean>
 
 	<!-- jedis 连接池配置参数： -->
 	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">

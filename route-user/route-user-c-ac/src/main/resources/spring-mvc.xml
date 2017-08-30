@@ -31,6 +31,7 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     
     <mvc:annotation-driven />
+    
 <!--     使Spring支持自动检测组件，如注解的Controller -->
     <context:component-scan base-package="me.zhaotb">
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation" />

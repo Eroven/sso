@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import me.zhaotb.common.jms.JMSHander;
-import me.zhaotb.common.redis.RedisClient;
+import me.zhaotb.common.service.UserSessionService;
 import me.zhaotb.common.utils.R;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter{
@@ -17,7 +17,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	private JMSHander jms;
 	
 	@Autowired
-	private RedisClient redis;
+	private UserSessionService redis;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

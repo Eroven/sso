@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import me.zhaotb.common.jms.JMSHander;
-import me.zhaotb.common.redis.RedisClient;
+import me.zhaotb.common.service.UserSessionService;
 import me.zhaotb.common.utils.R;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter{
@@ -17,7 +17,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	private JMSHander jms;
 	
 	@Autowired
-	private RedisClient redis;
+	private UserSessionService redis;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -29,7 +29,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			boolean exist = redis.accessExistence(rId);
 			if(exist) {
 				Object user = session.getAttribute(R.C.USER_IN_SESSION);
-				if(user == null) {//将全局session中的user值取出来暂存在局部session中
+				if(user == null) {//将全局session中的user值取出来储存在局部session中
 					session.setAttribute(R.C.USER_IN_SESSION, redis.getUser(rId));
 				}					
 				return true;
