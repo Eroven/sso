@@ -30,6 +30,7 @@ public final class R {
 		public static final String RID = "RSESSIONID";
 		public static final String RID_DESC = "全局会话id";
 		public static final String LAST_SERVER = "lastServer";
+		public static final String FAILED_COUNTER = "sorryFailed";
 	}
 	
 }

@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSON;
 
 import me.zhaotb.ac.user.UserProvider;
 import me.zhaotb.ac.user.UserState;
-import me.zhaotb.common.dao.UserSessionDAO;
 import me.zhaotb.common.jms.JMSHander;
 import me.zhaotb.common.utils.R;
 import me.zhaotb.common.utils.RandomUtil;
@@ -28,9 +27,6 @@ public class AuthorizeCenterController {
 	@Autowired
 	private JMSHander jms;
 
-	@Autowired
-	private UserSessionDAO redis;
-
 	@RequestMapping("user")
 	public void authorize(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
@@ -38,7 +34,7 @@ public class AuthorizeCenterController {
 		if (serCli != null)
 			session.setAttribute(R.C.LAST_SERVER, serCli);
 		String rID = getRID(request);
-		if (rID == null || !redis.accessExistence(rID)) {// 授权中心表示没有用户信息，则需要用户登录
+		if (rID == null || !provider.accessExistence(rID)) {// 授权中心表示没有用户信息，则需要用户登录
 			response.sendRedirect(R.DEFAULT_LOGIN_PAGE);
 			return;
 		}
@@ -76,7 +72,7 @@ public class AuthorizeCenterController {
 		UserState state = provider.valideUser(account, password);
 		if(200 == state.getState()) { //验证通过,创建全局session
 			String RID = RandomUtil.uuid();
-			redis.saveUser(RID, JSON.toJSONString(state.getUser()));
+			provider.saveUser(RID, JSON.toJSONString(state.getUser()));
 			Cookie c = new Cookie(R.C.RID, RID);
 			c.setMaxAge(-1);//当浏览器关闭时，删除全局会话id
 			response.addCookie(c);
@@ -88,7 +84,7 @@ public class AuthorizeCenterController {
 	public void logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		String RID = getRID(request);
 		if(RID != null)
-			redis.invalidSession(RID.toString());//摧毁全局Session
+			provider.invalidSession(RID.toString());//摧毁全局Session
 		Object server = request.getSession().getAttribute("lastServer");
 		if(server == null)
 			server = R.DEFAULT_INDEX;

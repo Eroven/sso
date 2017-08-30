@@ -9,6 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import me.zhaotb.common.jms.JMSHander;
 import me.zhaotb.common.service.UserSessionService;
+import me.zhaotb.common.utils.AuthorizeFailureHander;
 import me.zhaotb.common.utils.R;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter{
@@ -18,6 +19,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
 	@Autowired
 	private UserSessionService redis;
+	
+	private static AuthorizeFailureHander hander = new AuthorizeFailureHander();
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -44,8 +47,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(tk != null) {//tk不为null说明已经经过授权
 			String rID = jms.recevieRID(tk);//拿到全局会话id
 			if(rID != null) {
+				String user = redis.getUser(rID);
+				if(user == null) {
+					hander.handFailure(request, response);
+					return false;
+				}
+				hander.handSusccess(request, response);
 				session.setAttribute(R.C.RID, rID);
-				session.setAttribute(R.C.USER_IN_SESSION, redis.getUser(rID));
+				session.setAttribute(R.C.USER_IN_SESSION, user);
 				return true;
 			}
 		}

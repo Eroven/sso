@@ -1,6 +1,8 @@
 package me.zhaotb.ac.user;
 
-public interface UserProvider {
+import me.zhaotb.common.dao.UserSessionDAO;
+
+public interface UserProvider extends UserSessionDAO{
 	
 	/**
 	 * 在后台验证用户的合法性
