@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.alibaba.fastjson.JSON;
+
 import me.zhaotb.common.jms.JMSHander;
 import me.zhaotb.common.service.UserSessionService;
 import me.zhaotb.common.utils.AuthorizeFailureHander;
@@ -32,7 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			boolean exist = redis.accessExistence(rId);
 			if(exist) {
 				Object user = session.getAttribute(R.C.USER_IN_SESSION);
-				if(user == null) {//将全局session中的user值取出来暂存在局部session中
+				if(user == null) {//将全局session中的user值取出来暂存在局部session中    预计99.9%的概率:user != null
 					session.setAttribute(R.C.USER_IN_SESSION, redis.getUser(rId));
 				}					
 				return true;
@@ -47,7 +49,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(tk != null) {//tk不为null说明已经经过授权
 			String rID = jms.recevieRID(tk);//拿到全局会话id
 			if(rID != null) {
-				String user = redis.getUser(rID);
+				Object user = JSON.parse(redis.getUser(rID));
 				if(user == null) {
 					hander.handFailure(request, response);
 					return false;

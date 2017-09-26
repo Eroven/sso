@@ -46,6 +46,8 @@
 		<constructor-arg index="2" value="6379" />
 		<constructor-arg index="3" value="2000" />
 	</bean>
+	
+	<tx:jta-transaction-manager></tx:jta-transaction-manager>
 
 	<!-- 配置连接ActiveMQ的ConnectionFactory -->
 	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
