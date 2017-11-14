@@ -26,3 +26,5 @@ A.html与B.html是有相关性的但不是一个服务端，而且跨域，怎�
     * 在每个服务端授权成功将*RSESSIONID*保存到局部session中（不需要保存到Cookie）
     * 拦截器在拦截的时候检查全局Session的存在性，并刷新其存在时间；若全局Session不存在，则摧毁局部Session
     * 退出时将全局Session摧毁，并重定向至授权中心
+
+asdasd
