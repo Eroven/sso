@@ -37,4 +37,9 @@ public final class R {
 		public static final String FAILED_COUNTER = "sorryFailed";
 	}
 	
+	public static final class UserState {
+		public static final int S_OK = 200;//成功
+		public static final int S_NO_ACCOUNT = 404;//输入账号无效
+		public static final int S_PW_ERROR = 500;//账号对应的密码错误
+	}
 }

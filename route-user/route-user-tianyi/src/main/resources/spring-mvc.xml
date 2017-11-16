@@ -54,7 +54,7 @@
 			<mvc:exclude-mapping path="/**/toLogin"/>
 			<mvc:exclude-mapping path="/**/doLogin"/>
 			<mvc:exclude-mapping path="/authorize/**"/>		
-			<bean class="me.zhaotb.route.tianyi.web.LoginInterceptor"></bean>
+			<bean class="me.zhaotb.common.intercepter.LoginInterceptor"></bean>
     	</mvc:interceptor>
     </mvc:interceptors>
 

@@ -74,7 +74,7 @@ public class AuthorizeCenterController {
 		if(provider == null)
 			throw new NullPointerException("请在spring容器中配置me.zhaotb.ac.user.UserProvider的实现类（注解或配置bean）");
 		UserState state = provider.valideUser(account, password);
-		if(200 == state.getState()) { //验证通过,创建全局session
+		if(R.UserState.S_OK == state.getState()) { //验证通过,创建全局session
 			String RID = RandomUtil.uuid();
 			service.saveUser(RID, JSON.toJSONString(state.getUser()));
 			Cookie c = new Cookie(R.C.RID, RID);
